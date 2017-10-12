@@ -108,9 +108,16 @@ namespace WarframeAlerts
             if (alert.expiration < DateTime.Now)
                 return;
             if (!configWindow.IsPlanetChecked(alert.planet))
+            {
+                if(Properties.Settings.Default.Unmatched)
+                    configWindow.Log("New unmatched alert: " + tweet);
                 return;
-            if (!configWindow.HasWantedReward(alert))
+            }
+            if (!configWindow.HasWantedReward(alert)) {
+                if (Properties.Settings.Default.Unmatched)
+                    configWindow.Log("New unmatched alert: " + tweet);
                 return;
+            }
 
             configWindow.Log("New alert matching your filter: " + tweet);
             Popup(tweet);

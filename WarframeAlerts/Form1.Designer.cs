@@ -41,6 +41,7 @@
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.endoAmount = new System.Windows.Forms.NumericUpDown();
             this.creditAmount = new System.Windows.Forms.NumericUpDown();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -156,6 +157,7 @@
             this.tabPage6.Controls.Add(this.textBox2);
             this.tabPage6.Controls.Add(this.endoAmount);
             this.tabPage6.Controls.Add(this.creditAmount);
+            this.tabPage6.Controls.Add(this.checkBox3);
             this.tabPage6.Controls.Add(this.checkBox2);
             this.tabPage6.Controls.Add(this.checkBox1);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
@@ -190,6 +192,17 @@
             this.creditAmount.Size = new System.Drawing.Size(63, 20);
             this.creditAmount.TabIndex = 1;
             this.creditAmount.ValueChanged += new System.EventHandler(this.SettingsChanged);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(449, 276);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(100, 17);
+            this.checkBox3.TabIndex = 0;
+            this.checkBox3.Text = "Log unmatched";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.SettingsChanged);
             // 
             // checkBox2
             // 
@@ -262,6 +275,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.NumericUpDown endoAmount;
