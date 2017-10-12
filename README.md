@@ -1,5 +1,5 @@
 # Warframe Alerts
-A system tray application for the game Warframe
+A standalone system tray application for the game Warframe. Allows for filtering by planet, reward type, and credit/endo threshold.
 
 ![wa](https://user-images.githubusercontent.com/1022438/31487888-f76b2e2c-af09-11e7-9e59-e61d5a5c9b09.png)
 
