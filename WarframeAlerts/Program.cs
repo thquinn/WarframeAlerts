@@ -40,7 +40,5 @@ namespace WarframeAlerts
 
         [DllImport("user32.dll")]
         internal static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        
     }
 }
