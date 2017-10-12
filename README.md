@@ -1,6 +1,8 @@
 # Warframe Alerts
 A system tray application for the game Warframe
 
+![wa](https://user-images.githubusercontent.com/1022438/31487888-f76b2e2c-af09-11e7-9e59-e61d5a5c9b09.png)
+
 ## Notes
 * Requires [.NET Framework 4.0+](https://www.microsoft.com/net/download/framework).
 * Check the releases for a standalone EXE.
