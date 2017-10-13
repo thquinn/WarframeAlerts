@@ -92,5 +92,17 @@ namespace WarframeAlerts.Properties {
                 this["EndoAmount"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Specifics {
+            get {
+                return ((string)(this["Specifics"]));
+            }
+            set {
+                this["Specifics"] = value;
+            }
+        }
     }
 }

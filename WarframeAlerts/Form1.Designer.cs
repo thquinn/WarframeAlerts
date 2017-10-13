@@ -43,6 +43,7 @@
             this.creditAmount = new System.Windows.Forms.NumericUpDown();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.Overview.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage6.SuspendLayout();
@@ -74,7 +75,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(548, 349);
             this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "Overview";
+            this.tabPage1.Text = "Log";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // textBox1
@@ -152,6 +153,7 @@
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage6.Controls.Add(this.textBox2);
             this.tabPage6.Controls.Add(this.endoAmount);
             this.tabPage6.Controls.Add(this.creditAmount);
             this.tabPage6.Controls.Add(this.checkBox2);
@@ -211,6 +213,19 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.SettingsChanged);
             // 
+            // textBox2
+            // 
+            this.textBox2.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.textBox2.Location = new System.Drawing.Point(6, 298);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox2.Size = new System.Drawing.Size(352, 45);
+            this.textBox2.TabIndex = 2;
+            this.textBox2.TextChanged += new System.EventHandler(this.SettingsChanged);
+            this.textBox2.Enter += new System.EventHandler(this.Specifics_Enter);
+            this.textBox2.Leave += new System.EventHandler(this.Specifics_Leave);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,6 +267,7 @@
         private System.Windows.Forms.NumericUpDown endoAmount;
         private System.Windows.Forms.NumericUpDown creditAmount;
         private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

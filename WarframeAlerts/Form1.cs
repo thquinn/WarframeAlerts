@@ -12,6 +12,8 @@ namespace WarframeAlerts
 {
     public partial class Form1 : Form
     {
+        static string presetSpecificsText = "comma-separated exact reward names: e.g. Excalibur Avalon Helmet, Dual Zoren Dagger-axe Skin";
+
         bool eventFreeze = false;
         List<CheckBox> planetBoxes, rewardBoxes;
 
@@ -20,14 +22,14 @@ namespace WarframeAlerts
             InitializeComponent();
 
             planetBoxes = new List<CheckBox>();
-            AddCheckBoxes(new string[]{ "Mercury", "Venus", "Earth", "Lua", "Mars", "Phobos", "Ceres", "Jupiter", "Europa", "Saturn", "Uranus", "Neptune", "Pluto", "Sedna", "Eris", "Void", "Kuva Fortress" }, tabPagePlanets, planetBoxes);
             rewardBoxes = new List<CheckBox>();
+            AddCheckBoxes(new string[]{ "Mercury", "Venus", "Earth", "Lua", "Mars", "Phobos", "Ceres", "Jupiter", "Europa", "Saturn", "Uranus", "Neptune", "Pluto", "Sedna", "Eris", "Void", "Kuva Fortress" }, tabPagePlanets, planetBoxes);
             AddCheckBoxes(Reward.AURAS, tabPage3, rewardBoxes);
             AddCheckBoxes(Reward.BLUEPRINTS, tabPage5, rewardBoxes);
             AddCheckBoxes(Reward.MODS, tabPage4, rewardBoxes);
             AddCheckBoxes(Reward.RESOURCES, tabPage2, rewardBoxes);
             AddCheckBoxes(Reward.WEAPON_PARTS, tabPage7, rewardBoxes);
-            AddCheckBoxes(new string[] { "Helmet Blueprints", "Kubrow Egg", "Weapon Skin Blueprints" }, tabPage6, rewardBoxes);
+            AddCheckBoxes(new string[] { "All Helmet Blueprints", "All Weapon Skin Blueprints", "Kubrow Egg" }, tabPage6, rewardBoxes);
 
             this.FormClosing += Form1_Closing;
 
@@ -35,10 +37,15 @@ namespace WarframeAlerts
             {
                 Properties.Settings.Default.Planets = new StringCollection();
                 Properties.Settings.Default.Rewards = new StringCollection();
+                Properties.Settings.Default.Specifics = "";
                 WriteSettings();
             }
             else
                 ReadSettings();
+            if (textBox2.Text.Length == 0)
+                textBox2.Text = presetSpecificsText;
+            else
+                textBox2.ForeColor = SystemColors.ControlText;
         }
 
         public void AddCheckBoxes(string[] labels, TabPage tabPage, List<CheckBox> boxList)
@@ -60,6 +67,22 @@ namespace WarframeAlerts
         {
             textBox1.AppendText("");
         }
+
+        private void Specifics_Enter(object sender, EventArgs e)
+        {
+            textBox2.ForeColor = SystemColors.ControlText;
+            if (textBox2.Text == presetSpecificsText)
+                textBox2.Text = "";
+        }
+        private void Specifics_Leave(object sender, EventArgs e)
+        {
+            if (textBox2.Text == "")
+            {
+                textBox2.ForeColor = SystemColors.GrayText;
+                textBox2.Text = presetSpecificsText;
+            }
+        }
+
 
         private void Form1_Closing(object sender, FormClosingEventArgs e)
         {
@@ -89,11 +112,14 @@ namespace WarframeAlerts
                 return true;
             foreach (Reward reward in alert.rewards)
             {
+                foreach (string specific in textBox2.Text.Split(','))
+                    if (specific.Trim().Equals(reward.name, StringComparison.InvariantCultureIgnoreCase))
+                        return true;
                 string name;
                 if (reward.name.EndsWith("Helmet"))
-                    name = "Helmet Blueprints";
+                    name = "All Helmet Blueprints";
                 else if (reward.name.EndsWith("Skin"))
-                    name = "Weapon Skin Blueprints";
+                    name = "All Weapon Skin Blueprints";
                 else
                     name = reward.name;
                 foreach (CheckBox checkBox in rewardBoxes)
@@ -115,6 +141,8 @@ namespace WarframeAlerts
             creditAmount.Value = Properties.Settings.Default.CreditAmount;
             checkBox2.Checked = Properties.Settings.Default.Endo;
             endoAmount.Value = Properties.Settings.Default.EndoAmount;
+            if (Properties.Settings.Default.Specifics.Length > 0)
+                textBox2.Text = Properties.Settings.Default.Specifics;
             eventFreeze = false;
         }
         public void WriteSettings()
@@ -131,6 +159,8 @@ namespace WarframeAlerts
             Properties.Settings.Default.CreditAmount = (int)creditAmount.Value;
             Properties.Settings.Default.Endo = checkBox2.Checked;
             Properties.Settings.Default.EndoAmount = (int)endoAmount.Value;
+            if (textBox2.Text != presetSpecificsText)
+                Properties.Settings.Default.Specifics = textBox2.Text;
             Properties.Settings.Default.Save();
         }
 
