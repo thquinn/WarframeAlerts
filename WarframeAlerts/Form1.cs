@@ -140,6 +140,7 @@ namespace WarframeAlerts
             checkBox1.Checked = Properties.Settings.Default.Credits;
             creditAmount.Value = Properties.Settings.Default.CreditAmount;
             checkBox2.Checked = Properties.Settings.Default.Endo;
+            checkBox3.Checked = Properties.Settings.Default.Unmatched;
             endoAmount.Value = Properties.Settings.Default.EndoAmount;
             if (Properties.Settings.Default.Specifics.Length > 0)
                 textBox2.Text = Properties.Settings.Default.Specifics;
@@ -159,6 +160,7 @@ namespace WarframeAlerts
             Properties.Settings.Default.CreditAmount = (int)creditAmount.Value;
             Properties.Settings.Default.Endo = checkBox2.Checked;
             Properties.Settings.Default.EndoAmount = (int)endoAmount.Value;
+            Properties.Settings.Default.Unmatched = checkBox3.Checked;
             if (textBox2.Text != presetSpecificsText)
                 Properties.Settings.Default.Specifics = textBox2.Text;
             Properties.Settings.Default.Save();

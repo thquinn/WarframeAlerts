@@ -68,7 +68,22 @@ namespace WarframeAlerts.Properties {
                 this["Endo"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Unmatched
+        {
+            get
+            {
+                return ((bool)(this["Unmatched"]));
+            }
+            set
+            {
+                this["Unmatched"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
