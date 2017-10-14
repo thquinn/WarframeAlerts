@@ -105,6 +105,8 @@ namespace WarframeAlerts
         void NewAlert(string tweet, DateTime start)
         {
             Alert alert = Alert.FromTweet(tweet, start);
+            if (alert == null)
+                return;
             if (alert.expiration < DateTime.Now)
                 return;
             if (!configWindow.IsPlanetChecked(alert.planet))

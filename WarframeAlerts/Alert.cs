@@ -53,7 +53,9 @@ namespace WarframeAlerts
                 string rewardString = rewardStrings[i];
                 if (rewardString.Contains('('))
                     rewardString = rewardString.Substring(0, rewardString.IndexOf('(') - 1);
-                if (rewardString.Split(' ')[0].EndsWith("x"))
+                string firstWord = rewardString.Split(' ')[0];
+                int quantity;
+                if (firstWord.EndsWith("x") && int.TryParse(firstWord.Substring(0, firstWord.Length - 1), out quantity))
                     rewardString = rewardString.Substring(rewardString.IndexOf('x') + 2);
                 alert.rewards.Add(Reward.FromString(rewardString));
             }
