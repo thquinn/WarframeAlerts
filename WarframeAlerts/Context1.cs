@@ -66,8 +66,13 @@ namespace WarframeAlerts
             userOptions.Count = 10;
             userOptions.UseSSL = true;
             userOptions.ScreenName = "WarframeAlerts";
-            TwitterResponse<TwitterStatusCollection> timeline = TwitterTimeline.UserTimeline(tokens, userOptions);
-            if (timeline.Content != null)
+            TwitterResponse<TwitterStatusCollection> timeline = null;
+            try
+            {
+                timeline = TwitterTimeline.UserTimeline(tokens, userOptions);
+            }
+            catch (Exception) { }
+            if (timeline == null || timeline.Content != null)
             {
                 if (status == ConnectionStatus.Connecting)
                     configWindow.Log("Connected. Scanning for alerts matching your filter...");
@@ -113,7 +118,14 @@ namespace WarframeAlerts
                 return;
             if (!configWindow.HasWantedReward(alert))
                 return;
-
+            
+            if (!tweet.Contains("Invasion: "))
+            {
+                List<string> tokens = tweet.Split(new string[] { " - " }, StringSplitOptions.None).ToList();
+                tokens.RemoveAt(1);
+                tweet = string.Join(" - ", tokens);
+            }
+            tweet += ": " + (alert.expiration - DateTime.Now).Minutes + " minutes remaining";
             configWindow.Log("New alert matching your filter: " + tweet);
             Popup(tweet);
         }
