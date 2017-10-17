@@ -125,7 +125,15 @@ namespace WarframeAlerts
                 tokens.RemoveAt(1);
                 tweet = string.Join(" - ", tokens);
             }
-            tweet += ": " + (alert.expiration - DateTime.Now).Minutes + " minutes remaining";
+            int minutesLeft = (int)(alert.expiration - DateTime.Now).TotalMinutes;
+            string minutesString;
+            if (minutesLeft > 1)
+                minutesString = minutesLeft + " minutes remaining";
+            else if (minutesLeft == 1)
+                minutesString = "1 minute remaining";
+            else
+                minutesString = "<1 minute remaining";
+            tweet += ": " + minutesString;
             configWindow.Log("New alert matching your filter: " + tweet);
             Popup(tweet);
         }
