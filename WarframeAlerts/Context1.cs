@@ -72,19 +72,20 @@ namespace WarframeAlerts
                 timeline = TwitterTimeline.UserTimeline(tokens, userOptions);
             }
             catch (Exception) { }
-            if (timeline == null || timeline.Content != null)
+
+            if (timeline == null || timeline.Content == null)
             {
-                if (status == ConnectionStatus.Connecting)
-                    configWindow.Log("Connected. Scanning for alerts matching your filter...");
-                if (status == ConnectionStatus.Issue)
-                    configWindow.Log("Reconnected.");
-                status = ConnectionStatus.Connected;
-            }
-            else if (status != ConnectionStatus.Issue)
-            {
-                configWindow.Log("Having trouble reaching Twitter. Will retry every 60 seconds.");
+                if (status != ConnectionStatus.Issue)
+                    configWindow.Log("Having trouble reaching Twitter. Will retry every 60 seconds.");
                 status = ConnectionStatus.Issue;
+                return;
             }
+
+            if (status == ConnectionStatus.Connecting)
+                configWindow.Log("Connected. Scanning for alerts matching your filter...");
+            if (status == ConnectionStatus.Issue)
+                configWindow.Log("Reconnected.");
+            status = ConnectionStatus.Connected;
 
             for (int i = 9; i >= 0; i--)
             {
