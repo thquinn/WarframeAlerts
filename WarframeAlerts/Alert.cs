@@ -53,7 +53,7 @@ namespace WarframeAlerts
                 string rewardString = rewardStrings[i];
                 if (rewardString.Contains('('))
                     rewardString = rewardString.Substring(0, rewardString.IndexOf('(') - 1);
-                if (rewardString.EndsWith(" Blueprint"))
+                if (rewardString.EndsWith(" Blueprint") && !Reward.WEAPON_PARTS.Contains(rewardString))
                     rewardString = rewardString.Substring(0, rewardString.Length - " Blueprint".Length);
                 string firstWord = rewardString.Split(' ')[0];
                 int quantity;

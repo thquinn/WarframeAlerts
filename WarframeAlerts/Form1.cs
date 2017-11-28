@@ -6,13 +6,14 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace WarframeAlerts
 {
     public partial class Form1 : Form
     {
-        static string presetSpecificsText = "comma-separated exact reward names: e.g. Excalibur Avalon Helmet, Dual Zoren Dagger-axe Skin";
+        static string presetSpecificsText = "comma-separated exact or regex/wildcarded reward names: e.g. Excalibur Avalon Helmet, Dual Zoren Dagger-axe Skin, Mesa * Helmet, Limbo (Aristeas|Aureolus) Helmet";
 
         bool eventFreeze = false;
         List<CheckBox> planetBoxes, rewardBoxes;
@@ -112,9 +113,16 @@ namespace WarframeAlerts
                 return true;
             foreach (Reward reward in alert.rewards)
             {
-                foreach (string specific in textBox2.Text.Split(','))
-                    if (specific.Trim().Equals(reward.name, StringComparison.InvariantCultureIgnoreCase))
-                        return true;
+                if (textBox2.Text != presetSpecificsText)
+                    foreach (string token in textBox2.Text.Split(','))
+                    {
+                        string specific = token.Trim();
+                        if (specific.Equals(reward.name, StringComparison.InvariantCultureIgnoreCase))
+                            return true;
+                        string regex = specific.Contains(" * ") ? specific.Replace("*", ".+") : specific;
+                        if (Regex.Match(reward.name, regex).Success)
+                            return true;
+                    }
                 string name;
                 if (reward.name.EndsWith("Helmet"))
                     name = "All Helmet Blueprints";
